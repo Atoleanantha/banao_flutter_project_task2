@@ -1,11 +1,14 @@
+
 import 'package:banao_flutter_project_task/models/events_model.dart';
 import 'package:banao_flutter_project_task/models/programs_model.dart';
 import 'package:banao_flutter_project_task/widgets/event_and_experiences.dart';
-import 'package:banao_flutter_project_task/widgets/lessons_cards_model.dart';
+import 'package:banao_flutter_project_task/widgets/lesson_list.dart';
 import 'package:banao_flutter_project_task/widgets/programs_card_model.dart';
+import 'package:banao_flutter_project_task/widgets/programs_list.dart';
 import 'package:flutter/material.dart';
 
-import '../models/lessons_model.dart';
+
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,6 +21,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreen extends State<HomeScreen> {
+
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -28,6 +32,7 @@ class _HomeScreen extends State<HomeScreen> {
       _selectedIndex = index;
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -250,9 +255,9 @@ class _HomeScreen extends State<HomeScreen> {
                   ),
                 ],
               ),
-              programForYou(),
+              const ProgramListView(),
               eventsAndExperiences(),
-              lessonsForYou(),
+              const LessonListView(),
             ],
           ),
         ),
@@ -261,58 +266,6 @@ class _HomeScreen extends State<HomeScreen> {
   }
 }
 
-Widget programForYou() {
-  return Padding(
-    padding: const EdgeInsets.only(top: 20.0, bottom: 10),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text(
-              'Programs for you',
-              style: TextStyle(fontSize: 20, fontFamily:'Lora'),
-            ),
-            InkWell(
-              onTap: () {},
-
-              child: Row(
-                children: const [
-                  Text(
-                    "See All",
-                    style: TextStyle(color: Colors.black45),
-                  ),
-                  Icon(
-                    Icons.arrow_forward,
-                    color: Colors.black45,
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
-        const SizedBox(height: 15,),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              if(programList.isEmpty) const Text("No programs is their"),
-              for (int index = 0; index < programList.length; index++)
-                programsCardModel(
-                    programList[index].img,
-                    programList[index].category,
-                    programList[index].title,
-                    programList[index].numberOfLessons,
-                )
-            ],
-          ),
-        ),
-        const SizedBox(height: 10,),
-      ],
-    ),
-  );
-}
 
 Widget eventsAndExperiences() {
   return Column(
@@ -376,62 +329,6 @@ Widget eventsAndExperiences() {
       //           return eventsAndExperiencesCardModel(eventList[index].img, eventList[index].category, eventList[index].title, eventList[index].date, eventList[index].month, eventList[index].day);
       //         })
       //     : const Text("No Events is their"),
-    ],
-  );
-}
-
-Widget lessonsForYou() {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Padding(
-        padding: const EdgeInsets.only(top: 20.0, bottom: 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text(
-              'Lessons for you',
-              style: TextStyle(fontSize: 20, fontFamily: 'Lora'),
-            ),
-
-            InkWell(
-              onTap: () {},
-              onLongPress: () {
-                const Text('See All');
-              },
-              child: Row(
-                children: const [
-                  Text(
-                    "See All",
-                    style: TextStyle(color: Colors.black45),
-                  ),
-                  Icon(
-                    Icons.arrow_forward,
-                    color: Colors.black45,
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
-      const SizedBox(height: 15,),
-      SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          children: [
-            if(lessonsList.isEmpty) const Text("No such programs is here"),
-            for (int index = 0; index < lessonsList.length; index++)
-              lessonCardModel(
-                lessonsList[index].img,
-                lessonsList[index].category,
-                lessonsList[index].title,
-                lessonsList[index].time,
-              )
-          ],
-        ),
-      ),
-      const SizedBox(height: 10,),
     ],
   );
 }
